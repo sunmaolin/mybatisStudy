@@ -8,7 +8,16 @@
         <result property="roleSex" column="role_sex"/>
         <result property="rolePhone" column="role_phone"/>
         <result property="roleAddress" column="role_address"/>
+        <!--下面是测试使用自定义typeHandler的俩种方式-->
+        <result property="note" column="note" typeHandler="typeHandler.ImitateStringTypeHandler"/>
+<!--        <result property="note" column="note" jdbcType="VARCHAR" javaType="string"/>-->
     </resultMap>
+
+    <!--下面是测试使用自定义typeHandler的俩种方式,也可以这样写-->
+    <select id="xxx" parameterType="string" resultType="string">
+        select note from role where note like concat('%',#{note,typeHandler="typeHandler.ImitateStringTypeHandler"},'%')
+        select note from role where note like concat('%',#{note,jdbcType="VARCHAR",javaType="string"},'%')
+    </select>
 
     <!--<select id="getRoleByXml" parameterType="int" resultType="role">
         select * from role where role_id = #{roleId}
