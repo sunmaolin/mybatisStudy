@@ -51,6 +51,9 @@
     <typeHandlers>
         <!--这是我们模仿的StringTypeHandler处理器-->
         <typeHandler handler="typeHandler.ImitateStringTypeHandler" javaType="string" jdbcType="VARCHAR"/>
+        <!--若需要大量typeHandler则可使用下面的方法-->
+        <!--这样没法指定javaType与jdbcType，可在类上添加注解@MappedTypes("String.class") @MappedjdbcTypes("jdbcType.VARCHAR")-->
+        <package name="typeHandler"/>
     </typeHandlers>
     <!--数据库环境-->
     <environments default="development">
