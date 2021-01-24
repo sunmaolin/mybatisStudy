@@ -52,4 +52,11 @@ public interface RoleMapper {
      * @return
      */
     List<Role> findRoles(String roleName);
+
+    /**
+     * 根据id获取姓名
+     * @param roleId
+     * @return
+     */
+    String getRoleName(int roleId);
 }
