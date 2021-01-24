@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--配置一些运行参数,只定义一次，到处使用,也可以定义properties的resource属性-->
+    <!--如果定义重复  优先使用代码 然后resource中的资源  最后是子节点property-->
+    <properties resource="jdbc.properties">
+        <property name="database.driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="database.url" value="jdbc:mysql://localhost:3306/mybatisStudy?serverTimezone=Asia/Shanghai"/>
+        <property name="database.username" value="root"/>
+        <property name="database.password" value="000"/>
+    </properties>
+    <!--配置别名-->
+    <typeAliases>
+        <typeAlias type="pojo.Role" alias="role"/>
+    </typeAliases>
+    <!--数据库环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${database.driver}"/>
+                <property name="url" value="${database.url}"/>
+                <property name="username" value="${database.username}"/>
+                <property name="password" value="${database.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--映射文件-->
+    <mappers>
+        <mapper resource="dao/RoleMapper.xml"/>
+    </mappers>
+
+</configuration>
