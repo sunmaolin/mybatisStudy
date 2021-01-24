@@ -15,8 +15,8 @@
 
     <!--下面是测试使用自定义typeHandler的俩种方式,也可以这样写-->
     <select id="xxx" parameterType="string" resultType="string">
-        select note from role where note like concat('%',#{note,typeHandler="typeHandler.ImitateStringTypeHandler"},'%')
-        select note from role where note like concat('%',#{note,jdbcType="VARCHAR",javaType="string"},'%')
+        select note from role where note like concat('%',#{note,typeHandler=typeHandler.ImitateStringTypeHandler},'%')
+        select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string},'%')
     </select>
 
     <!--<select id="getRoleByXml" parameterType="int" resultType="role">
