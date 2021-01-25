@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 模仿StringTypeHandler
+ * 模仿StringTypeHandler,,也可以实现TypeHandler接口
  */
 public class ImitateStringTypeHandler extends BaseTypeHandler<String> {
 

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 自定义枚举转化类
+ * 自定义枚举转化类,,也可以实现TypeHandler接口
  */
 public class SexEnumTypeHandler extends BaseTypeHandler<SexEnum> {
     @Override
