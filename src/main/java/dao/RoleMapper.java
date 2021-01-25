@@ -59,4 +59,11 @@ public interface RoleMapper {
      * @return
      */
     String getRoleName(int roleId);
+
+    /**
+     * 通过mybatis自带的枚举类（EnumOrdinalTypeHandler）转换器测试获取性别并转换为汉字
+     * @param roleId
+     * @return
+     */
+    Role getSexByEnumOrdinal(int roleId);
 }

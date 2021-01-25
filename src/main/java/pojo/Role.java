@@ -1,12 +1,26 @@
 package pojo;
 
+import myEnum.SexEnum;
+
 public class Role {
     private int roleId;
     private String roleName;
     private int roleSex;
+    /**
+     * 测试枚举类转换
+     */
+    private SexEnum sexEnum;
     private String rolePhone;
     private String roleAddress;
     private String note;
+
+    public SexEnum getSexEnum() {
+        return sexEnum;
+    }
+
+    public void setSexEnum(SexEnum sexEnum) {
+        this.sexEnum = sexEnum;
+    }
 
     public int getRoleId() {
         return roleId;

@@ -15,6 +15,7 @@ public class EnumStudyAdvanced {
  * 定义性别枚举类
  */
 enum Sex{
+    //男，女
     MALE("男性"),
     FEMALE("女性");
 
@@ -54,7 +55,7 @@ enum Sex{
 }
 
 enum AbstractEnum {
-
+    //第一，第二
     FIRST{
         @Override
         String getInfo() {

@@ -40,7 +40,7 @@ public enum SexEnum {
      * @param id
      * @return
      */
-    public SexEnum getSexById(int id){
+    public static SexEnum getSexById(int id){
         for (SexEnum sex : SexEnum.values()){
             if(sex.getId() == id){
                 return sex;
