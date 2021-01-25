@@ -25,14 +25,19 @@
         <result property="sexEnum" column="role_sex" typeHandler="typeHandler.SexEnumTypeHandler"/>
     </resultMap>
 
-    <select id="getSexByEnumOrdinal" parameterType="int" resultMap="enumOrdinalTypeHandlerTest">
-        select role_sex from role where role_id = #{roleId}
-    </select>
-
     <!--下面是测试使用自定义typeHandler的俩种方式,也可以这样写-->
     <select id="xxx" parameterType="string" resultType="string">
         select note from role where note like concat('%',#{note,typeHandler=typeHandler.ImitateStringTypeHandler},'%')
         select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string},'%')
+    </select>
+
+    <!--测试不同数据库厂商,mybatis会根据不同的数据库执行sql-->
+    <select id="xxxx" databaseId="oracle">
+
+    </select>
+
+    <select id="getSexByEnumOrdinal" parameterType="int" resultMap="enumOrdinalTypeHandlerTest">
+        select role_sex from role where role_id = #{roleId}
     </select>
 
     <select id="getRoleName" parameterType="int" resultMap="typeHandlerTest">

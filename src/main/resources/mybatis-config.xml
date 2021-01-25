@@ -78,6 +78,12 @@
 <!--            </dataSource>-->
         </environment>
     </environments>
+    <!--数据库厂商标识,可以支持兼容多数据库开发-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="Oracle" value="oracle"/>
+        <property name="MySQL" value="mysql"/>
+        <property name="DB2" value="db2"/>
+    </databaseIdProvider>
     <!--映射文件-->
     <mappers>
         <mapper resource="dao/RoleMapper.xml"/>
