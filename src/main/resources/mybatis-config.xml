@@ -55,7 +55,7 @@
         <!--这样没法指定javaType与jdbcType，可在类上添加注解@MappedTypes("String.class") @MappedjdbcTypes("jdbcType.VARCHAR")-->
         <package name="typeHandler"/>
     </typeHandlers>
-    <!--对象工厂,没几把屌用,setPropertis方法在源码中直接啥也没干,操蛋-->
+    <!--对象工厂-->
     <objectFactory type="objectFactory.MyObjectFactory">
         <property name="mykey" value="myvalue"/>
     </objectFactory>
@@ -78,12 +78,16 @@
 <!--            </dataSource>-->
         </environment>
     </environments>
-    <!--数据库厂商标识,可以支持兼容多数据库开发-->
+    <!--数据库厂商标识,可以支持兼容多数据库开发,这是使用默认规则-->
     <databaseIdProvider type="DB_VENDOR">
         <property name="Oracle" value="oracle"/>
         <property name="MySQL" value="mysql"/>
         <property name="DB2" value="db2"/>
     </databaseIdProvider>
+    <!--也可以使用自定义规则-->
+<!--    <databaseIdProvider type="dataBaseIdProvider.MyDataBaseIdProvider">-->
+<!--        <property name="msg" value="自定义"/>-->
+<!--    </databaseIdProvider>-->
     <!--映射文件-->
     <mappers>
         <mapper resource="dao/RoleMapper.xml"/>

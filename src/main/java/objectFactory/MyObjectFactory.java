@@ -16,7 +16,7 @@ public class MyObjectFactory extends DefaultObjectFactory {
     private Object temp = null;
 
     /**
-     * 初始化参数
+     * 初始化参数,可以获取到配置的参数
      * @param properties
      */
     public void setProperties(Properties properties) {
