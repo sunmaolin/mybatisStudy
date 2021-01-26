@@ -90,7 +90,10 @@
 <!--    </databaseIdProvider>-->
     <!--映射文件-->
     <mappers>
-        <mapper resource="dao/RoleMapper.xml"/>
+        <!--重复映射相同文件会报错-->
+<!--        <mapper resource="dao/RoleMapper.xml"/>-->
+        <!--扫描包下所有文件进行映射-->
+        <package name="dao"/>
     </mappers>
 
 </configuration>

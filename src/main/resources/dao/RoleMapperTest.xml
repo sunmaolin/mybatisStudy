@@ -18,7 +18,7 @@
 
     <!--测试传递多个参数-->
     <!--1.通过map    不推荐,因为需要知道map的键所代表的含义-->
-    <select id="parameterMapTest" resultType="roleMap" parameterType="map">
+    <select id="parameterMapTest" resultMap="roleMap" parameterType="map">
         select * from role where role_id = #{roleId} and role_name = #{roleName}
     </select>
 
@@ -36,6 +36,27 @@
     <select id="parameterMixTest" resultMap="roleMap">
         select * from role where role_id = #{role.roleId} and role_name = #{role.roleName} limit #{limitMap.start},#{limitMap.end}
     </select>
+
+    <!--测试mybatis自带分页查询 rowBounds 适用于小数据量,大数据量性能不佳-->
+    <select id="rowBoundsTest" resultMap="roleMap">
+        select * from role order by role_id
+    </select>
+
+    <!--测试主键回填-->
+    <!--keyProperty属性 代表将生成的主键放入哪个属性,若存在多个生成主键用,隔开-->
+    <!--keyColumn属性 代表生成主键列的字段,仅当主键不是表中第一列时使用,若存在多个主键,用,隔开-->
+    <insert id="generateKeyTest" parameterType="role" useGeneratedKeys="true" keyProperty="roleId" keyColumn="role_id">
+        insert into role (role_name,role_phone) values (#{roleName},#{rolePhone})
+    </insert>
+
+    <!--测试插入自定义主键  规则为最大主键+3-->
+    <insert id="customizeKeyTest" parameterType="role">
+        <!--keyProperty对应属性,查出后将id写入  order执行顺序 before在定义的sql之前执行-->
+        <selectKey keyProperty="roleId" resultType="int" order="BEFORE">
+            select if(max(role_id)=null,1,max(role_id)+3) from role
+        </selectKey>
+        insert into role (role_id,role_name) values (#{roleId},#{roleName})
+    </insert>
 
 
 
