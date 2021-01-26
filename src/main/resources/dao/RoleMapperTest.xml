@@ -1,0 +1,42 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 映射器测试mapper -->
+<mapper namespace="dao.RoleMapperTest">
+
+    <resultMap id="roleMap" type="role">
+        <!--代表主键-->
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleAddress" column="role_address"/>
+        <result property="roleSex" column="role_sex"/>
+        <result property="rolePhone" column="role_phone"/>
+    </resultMap>
+
+    <!--因为开启了默认映射autoMappingBehavior属性,所以会自动映射到roleName-->
+    <select id="xxx">
+        select role_name as roleName from role
+    </select>
+
+    <!--测试传递多个参数-->
+    <!--1.通过map    不推荐,因为需要知道map的键所代表的含义-->
+    <select id="parameterMapTest" resultType="roleMap" parameterType="map">
+        select * from role where role_id = #{roleId} and role_name = #{roleName}
+    </select>
+
+    <!--2.通过注解参数的形式传递参数  推荐,参数<=5的时候推荐使用-->
+    <select id="parameterAnnotationTest" resultMap="roleMap">
+        select * from role where role_id = #{roleId} and role_name = #{roleName}
+    </select>
+
+    <!--3.通过javaBean的形式传递参数 推荐,参数>5的时候使用-->
+    <select id="parameterBeanTest" resultMap="roleMap" parameterType="role">
+        select * from role where role_id = #{roleId} and role_name = #{roleName}
+    </select>
+
+    <!--4.通过混合使用传递参数的形式-->
+    <select id="parameterMixTest" resultMap="roleMap">
+        select * from role where role_id = #{role.roleId} and role_name = #{role.roleName} limit #{limitMap.start},#{limitMap.end}
+    </select>
+
+
+
+</mapper>
