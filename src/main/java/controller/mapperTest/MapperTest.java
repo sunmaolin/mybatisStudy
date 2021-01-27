@@ -19,7 +19,8 @@ public class MapperTest {
             sqlSession = SqlSessionFactoryUtils.openSqlSession();
 //            testRowBounds(sqlSession);
 //            testGenerateKey(sqlSession);
-            testCustomizeKey(sqlSession);
+//            testCustomizeKey(sqlSession);
+            testVariable(sqlSession);
         }catch (Exception e){
             e.printStackTrace();
             //回滚
@@ -69,6 +70,16 @@ public class MapperTest {
         role.setRoleName("测试自定义主键");
         int affectedRows = roleMapperTest.customizeKeyTest(role);
         logger.info(affectedRows);
+        logger.info(role);
+    }
+
+    /**
+     * 测试定义变量sql
+     * @param sqlSession
+     */
+    public static void testVariable(SqlSession sqlSession){
+        RoleMapperTest roleMapperTest = sqlSession.getMapper(RoleMapperTest.class);
+        Role role = roleMapperTest.variableSqlTest(1);
         logger.info(role);
     }
 

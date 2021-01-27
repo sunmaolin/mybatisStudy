@@ -58,6 +58,30 @@
         insert into role (role_id,role_name) values (#{roleId},#{roleName})
     </insert>
 
+    <!--定义sql的部分内容，避免重复书写的尴尬，可以到处引用-->
+    <sql id="roleCols">
+        role_id,role_name,role_sex,role_adddress,role_phone,note
+    </sql>
+
+    <!--测试使用定义的sql-->
+    <select id="useSqlTest" parameterType="int" resultMap="roleMap">
+        select <include refid="roleCols"/> from role where role_id = #{roleId}
+    </select>
+
+    <!--当然我们也可义在sql中使用变量,比如定义表别名-->
+    <sql id="variableSql">
+        ${alias}.role_id,${alias}.role_name
+    </sql>
+
+    <!--测试在sql中使用变量-->
+    <select id="variableSqlTest" parameterType="int" resultMap="roleMap">
+        select
+        <include refid="variableSql">
+            <property name="alias" value="aliasRole"/>
+        </include>
+        from role aliasRole where role_id = #{roleId}
+    </select>
+
 
 
 </mapper>

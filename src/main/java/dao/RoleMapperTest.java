@@ -64,4 +64,11 @@ public interface RoleMapperTest {
      */
     int customizeKeyTest(Role role);
 
+    /**
+     * 测试定义变量sql
+     * @param roleId
+     * @return
+     */
+    Role variableSqlTest(int roleId);
+
 }
