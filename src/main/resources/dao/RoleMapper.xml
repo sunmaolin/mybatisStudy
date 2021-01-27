@@ -3,6 +3,11 @@
 <mapper namespace="dao.RoleMapper">
 
     <resultMap id="roleMapper" type="role">
+        <!--若该实体类，没有无参构造，可使用constructor标签-->
+        <!--<constructor>
+            <idArg/>
+            <arg/>
+        </constructor>-->
         <result property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="roleSex" column="role_sex"/>
@@ -28,7 +33,8 @@
     <!--下面是测试使用自定义typeHandler的俩种方式,也可以这样写-->
     <select id="xxx" parameterType="string" resultType="string">
         select note from role where note like concat('%',#{note,typeHandler=typeHandler.ImitateStringTypeHandler},'%')
-        select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string},'%')
+        <!--若为number类型，可在后面加上属性numericScale指定精度-->
+        select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string,/*numericScale=2*/},'%')
     </select>
 
     <!--测试不同数据库厂商,mybatis会根据不同的数据库执行sql-->
