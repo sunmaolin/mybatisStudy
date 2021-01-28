@@ -1,0 +1,9 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 女性体检表映射文件 -->
+<mapper namespace="dao.cascadeMapper.FemaleHealthFormMapper">
+
+    <select id="getFemaleHealthFormByEmpId" resultType="pojo.cascadePojo.MaleHealthForm" parameterType="long">
+        select id,emp_id as empId,heart,liver,spleen,lung,kidney,uterus,note
+            from t_female_health_form where emp_id = #{empId}
+    </select>
+</mapper>

@@ -1,5 +1,0 @@
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<!-- 级联测试 -->
-<mapper namespace="dao.CascadeMapperTest">
-
-</mapper>

@@ -33,8 +33,8 @@
     <!--下面是测试使用自定义typeHandler的俩种方式,也可以这样写-->
     <select id="xxx" parameterType="string" resultType="string">
         select note from role where note like concat('%',#{note,typeHandler=typeHandler.ImitateStringTypeHandler},'%')
-        <!--若为number类型，可在后面加上属性numericScale指定精度-->
-        select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string,/*numericScale=2*/},'%')
+        <!--若为number类型，可在后面加上属性numericScale指定精度  numericScale=2-->
+        select note from role where note like concat('%',#{note,jdbcType=VARCHAR,javaType=string},'%')
     </select>
 
     <!--测试不同数据库厂商,mybatis会根据不同的数据库执行sql-->

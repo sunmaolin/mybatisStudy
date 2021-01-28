@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 雇员表映射文件 -->
+<mapper namespace="dao.cascadeMapper.EmployeeMapper">
+    <resultMap id="employee" type="pojo.cascadePojo.Employee">
+        <id property="id" column="id"/>
+        <result property="realName" column="real_name"/>
+        <result property="sexEnum" column="sex" typeHandler="typeHandler.SexEnumTypeHandler"/>
+        <result property="birthday" column="birthday"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="position" column="position"/>
+        <result property="note" column="note"/>
+        <!--一对一级联  一个雇员只有一个工牌-->
+        <association property="workCard" column="id" select="dao.cascadeMapper.WorkCardMapper.getWorkCardByEmpId"/>
+        <!--一对多级联  一个雇员有多个雇员任务-->
+        <collection property="employeeTaskList" column="id" select="dao.cascadeMapper.EmployeeTaskMapper.getEmployeeTaskByEmpId"/>
+        <!--鉴别器  通过sex判断使用哪个resultMap进行映射-->
+        <discriminator javaType="long" column="sex">
+            <case value="1" resultMap="maleHealthFormMapper"/>
+            <case value="0" resultMap="femaleHealthFormMapper"/>
+        </discriminator>
+    </resultMap>
+
+    <!--若不继承，则属性与列名不一致的会对应不上-->
+    <resultMap id="femaleHealthFormMapper" type="pojo.cascadePojo.FemaleEmployee" extends="employee">
+        <association property="femaleHealthForm" column="id" select="dao.cascadeMapper.FemaleHealthFormMapper.getFemaleHealthFormByEmpId"/>
+    </resultMap>
+
+    <resultMap id="maleHealthFormMapper" type="pojo.cascadePojo.MaleEmployee" extends="employee">
+        <association property="maleHealthForm" column="id" select="dao.cascadeMapper.MaleHealthFormMapper.getMaleHealthFormByEmpId"/>
+    </resultMap>
+
+    <sql id="getEmployeeSql">
+        select id,real_name,sex,birthday,mobile,email,position,note from t_employee where id = #{id}
+    </sql>
+
+    <select id="getEmployee" parameterType="long" resultMap="employee">
+        <include refid="getEmployeeSql"/>
+    </select>
+
+</mapper>

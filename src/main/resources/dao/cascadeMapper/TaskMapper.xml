@@ -1,0 +1,9 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 任务映射文件 -->
+<mapper namespace="dao.cascadeMapper.TaskMapper">
+
+    <select id="getTask" parameterType="long" resultType="pojo.cascadePojo.Task">
+        select id,title,context,note from t_task where id = #{id}
+    </select>
+
+</mapper>

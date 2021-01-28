@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 雇员任务映射表 -->
+<mapper namespace="dao.cascadeMapper.EmployeeTaskMapper">
+
+    <resultMap id="employeeTaskMap" type="pojo.cascadePojo.EmployeeTask">
+        <id property="id" column="id"/>
+        <result property="empId" column="emp_id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="note" column="note"/>
+        <!--一对一级联,将task_id当作参数传递，若存在多个参数，则用,隔开-->
+        <association property="task" column="task_id" select="dao.cascadeMapper.TaskMapper.getTask"/>
+    </resultMap>
+
+    <select id="getEmployeeTaskByEmpId" resultMap="employeeTaskMap" parameterType="long">
+        select id,emp_id,task_id,task_name,note from t_employee_task where emp_id = #{empId}
+    </select>
+
+</mapper>
