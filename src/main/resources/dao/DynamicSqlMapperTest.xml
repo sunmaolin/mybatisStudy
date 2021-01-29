@@ -1,0 +1,97 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- 动态sql测试 -->
+<mapper namespace="dao.DynamicSqlMapperTest">
+
+    <resultMap id="roleMap" type="role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleSex" column="role_sex"/>
+        <result property="rolePhone" column="role_phone"/>
+        <result property="roleAddress" column="role_address"/>
+        <result property="note" column="note"/>
+    </resultMap>
+
+    <!--测试if-->
+    <select id="testIf" resultMap="roleMap" parameterType="string">
+        select * from role where 1=1
+        <if test="roleName != null and roleName != ''">
+            and role_name like #{roleName}
+        </if>
+        <if test="roleName == null or roleName == ''">
+            and role_id = 1
+        </if>
+    </select>
+
+    <!--测试choose when otherwise-->
+    <select id="testChooseWhenOtherwise" resultMap="roleMap">
+        select * from role where 1=1
+        <choose>
+            <when test="roleId != 0">
+                and role_id = #{roleId}
+            </when>
+            <when test="roleName != null and roleName != ''">
+                and role_name like #{roleName}
+            </when>
+            <otherwise>
+                and role_id = 1
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--测试trim-->
+    <!--通过上面发现  如果我们不写where 1=1 很可能会拼成错的sql-->
+    <select id="testTrim" resultMap="roleMap">
+        select * from role
+        <trim prefix="where" prefixOverrides="and">
+            <if test="roleId != 0">
+                and role_id = #{roleId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name like #{roleName}
+            </if>
+        </trim>
+    </select>
+
+    <!--测试where  其实与trim差不多-->
+    <select id="testWhere" resultMap="roleMap">
+        select * from role
+        <where>
+            <if test="roleId != 0">
+                and role_id = #{roleId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name like #{roleName}
+            </if>
+        </where>
+    </select>
+
+    <!--测试set  主要用于更新，添加语句. 与where类似，当然也可以用trim-->
+    <select id="testSet" resultMap="roleMap">
+        update role
+        <set>
+            <if test="roleSex != ''">
+                role_sex = #{roleSex}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName}
+            </if>
+        </set>
+        where role_id = 5
+    </select>
+
+    <!--测试foreach-->
+    <select id="testForeach" resultMap="roleMap">
+        select * from role where role_id in
+        <foreach collection="roleIds" index="index" item="roleId"
+                 open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </select>
+
+    <!--测试bind-->
+    <select id="testBind" resultMap="roleMap">
+        <bind name="likeName" value="'%'+roleName+'%'"/>
+        <bind name="likeNote" value="'%'+note+'%'"/>
+        select * from role where role_name like #{likeName} and note like #{likeNote}
+    </select>
+</mapper>
