@@ -2,6 +2,8 @@
 <!-- namespace：对应哪个接口 -->
 <mapper namespace="dao.RoleMapper">
 
+    <cache/>
+
     <resultMap id="roleMapper" type="role">
         <!--若该实体类，没有无参构造，可使用constructor标签-->
         <!--<constructor>
