@@ -40,4 +40,31 @@
         <include refid="getEmployeeSql"/>
     </select>
 
+
+    <!--级联的另一种写法  对于表连接较少的时候可以使用该方法-->
+    <resultMap id="otherGetEmployee" type="pojo.cascadePojo.Employee">
+        <id property="id" column="id"/>
+        <result property="realName" column="real_name"/>
+        <association property="workCard" javaType="pojo.cascadePojo.WorkCard" column="id" fetchType="lazy">
+            <id property="id" column="wc_id"/>
+            <result property="empId" column="id"/>
+        </association>
+        <collection property="employeeTaskList" ofType="pojo.cascadePojo.EmployeeTask" column="id">
+            <association property="task" javaType="pojo.cascadePojo.Task">
+                <id property="xxx" column="xx"/>
+                <result property="xxx" column="xx"/>
+            </association>
+        </collection>
+        <!--鉴别器还是上面的写法-->
+    </resultMap>
+
+    <select id="xxxx" resultMap="otherGetEmployee" parameterType="long">
+        select emp.id,emp.real_name,wc.id as wc_id from t_employee emp
+            left join t_word_card wc on emp.id=wc.emp_id
+        where emp.id = #{id}
+    </select>
+
+
+
+
 </mapper>
