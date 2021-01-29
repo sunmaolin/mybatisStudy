@@ -11,7 +11,9 @@
         <result property="position" column="position"/>
         <result property="note" column="note"/>
         <!--一对一级联  一个雇员只有一个工牌-->
-        <association property="workCard" column="id" select="dao.cascadeMapper.WorkCardMapper.getWorkCardByEmpId"/>
+        <!--association与collection有fetchType属性 该属性会忽略全局lazyLoadingEnabled与aggreessiveLazyLoading属性-->
+        <!--eager  立即加载   lazy   延迟加载-->
+        <association property="workCard" column="id" select="dao.cascadeMapper.WorkCardMapper.getWorkCardByEmpId" fetchType="eager"/>
         <!--一对多级联  一个雇员有多个雇员任务-->
         <collection property="employeeTaskList" column="id" select="dao.cascadeMapper.EmployeeTaskMapper.getEmployeeTaskByEmpId"/>
         <!--鉴别器  通过sex判断使用哪个resultMap进行映射-->
